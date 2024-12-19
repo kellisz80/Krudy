@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krúdy-est visszaszámláló</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to bottom, #ffffff, #d8e9f0);
+            color: #333;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+        }
+        #countdown {
+            font-size: 2rem;
+            margin-top: 20px;
+            color: #e74c3c;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <h1>Krúdy-est visszaszámláló</h1>
+    <img src="krudy.jpg" alt="Krúdy-est fotó">
+    <p>Krúdy-estig hátralévő napok száma:</p>
+    <div id="countdown">00 nap 00 óra 00 perc 00 másodperc</div>
+
+    <script>
+        // Cél dátum beállítása
+        const targetDate = new Date("2024-12-31T23:59:59").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference < 0) {
+                document.getElementById("countdown").innerHTML = "A Krúdy-est elkezdődött!";
+                clearInterval(timer);
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML = 
+                `${days} nap ${hours} óra ${minutes} perc ${seconds} másodperc`;
+        }
+
+        // Frissítés 1 másodpercenként
+        const timer = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Azonnali frissítés betöltés után
+    </script>
+</body>
+</html>
